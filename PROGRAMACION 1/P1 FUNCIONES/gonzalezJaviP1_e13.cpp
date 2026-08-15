@@ -7,6 +7,7 @@ int rand().
 Es necesario primero ordenar los arreglos y luego realizar el merge
 */
 
+#include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -26,7 +27,7 @@ void bubbleSort(int arr[], int n){
 
 int main(){
 	srand(time(NULL));
-	int a[MAX], b[MAX], c[MAX*2];
+	int a[MAX], b[MAX], c[MAX*2], cant=0;
 	
 	//creo los arreglos a y b con numeros aleatorios
 	for(int i=0;i<MAX;i++){
@@ -44,16 +45,35 @@ int main(){
 		printf("%d y %d\n", a[i],b[i]);
 	}
 	
-	for(int i=0, j=0; i<MAX*2;){
-		if(a[i]>b[j]){
+	for(int i=0, j=0, k=0; i<MAX*2;i++){
+		if(a[j]<b[k]){
+			c[i]=a[j];
+			j++;
+				cant++;
 		}
-		else if(a[i]<b[j]){
+		else if(a[j]>b[k]){
+			c[i]=b[k];
+			k++;
+				cant++;
 		}
-		else if(a[i]==b[j]){
+
+		else if(a[j]==b[k]){
+			if (c[i]!=c[i-1]){
+				c[i]=a[j];
+				j++;
+				k++;
+				cant++;
+			}
 		}
+		/*
+		else if(a[j]==b[k]){
+			c[i]=a[j];
+			j++;
+			k++;
+		}*/
 	}
 	
-	for(int i=0;i<MAX*2;i++){
+	for(int i=0;i<cant;i++){
 		printf("%d\n",c[i]);
 	}
 	

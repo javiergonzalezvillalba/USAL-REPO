@@ -5,7 +5,7 @@ Dado un vector de T elementos enteros, desarrollar una función que:
 - devuelva el valor MÌNIMO
 */
 
-#include <stdio.h>
+#include <cstdio>
 #define MAX 5
 
 int buscaMin(int lista[], int n){
