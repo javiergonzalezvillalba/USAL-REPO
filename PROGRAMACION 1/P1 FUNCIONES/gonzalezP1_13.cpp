@@ -1,4 +1,4 @@
-/* GONZALEZ JAVIER ejercicio 13 p1
+/* GONZALEZ JAVIER ejercicio 13
 Merge de dos arreglos
 Comparar 2 arreglos con 10 elementos enteros y generar un tercer vector
 también ordenado con todos los elementos sin los repetidos.
@@ -7,7 +7,6 @@ int rand().
 Es necesario primero ordenar los arreglos y luego realizar el merge
 */
 
-#include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -44,38 +43,54 @@ int main(){
 	for(int i=0;i<MAX;i++){
 		printf("%d y %d\n", a[i],b[i]);
 	}
-	
-	for(int i=0, j=0, k=0; i<MAX*2;i++){
-		if(a[j]<b[k]){
-			c[i]=a[j];
-			j++;
-				cant++;
-		}
-		else if(a[j]>b[k]){
-			c[i]=b[k];
+
+	printf("------------------------------------\n");
+	int j=0, k=0, num=0;
+	while (j<MAX && k<MAX) {
+		//condicionales del numero a ingresar en c
+		if(a[j]>b[k]) {
+			num=b[k];
 			k++;
-				cant++;
+		}
+		else if(a[j]<b[k]) {
+			num=a[j];
+			j++;
+		}else {
+			num=a[k];
+			j++;
+			k++;
 		}
 
-		else if(a[j]==b[k]){
-			if (c[i]!=c[i-1]){
-				c[i]=a[j];
-				j++;
-				k++;
-				cant++;
-			}
+		//agregando num en c
+		if (cant==0 || c[cant-1]!=num) {
+			c[cant]=num;
+			cant++;
 		}
-		/*
-		else if(a[j]==b[k]){
-			c[i]=a[j];
-			j++;
-			k++;
-		}*/
+
 	}
-	
+	// Vaciar los elementos sobrantes si el arreglo 'a' todavía tiene pendientes
+	while (j < MAX) {
+		if (cant == 0 || c[cant - 1] != a[j]) {
+			c[cant] = a[j];
+			cant++;
+		}
+		j++;
+	}
+	// Vaciar los elementos sobrantes si el arreglo 'b' todavía tiene pendientes
+	while (k < MAX) {
+		if (cant == 0 || c[cant - 1] != b[k]) {
+			c[cant] = b[k];
+			cant++;
+		}
+		k++;
+	}
+
+	printf("------------------------------------\n");
+	printf("Vector C resultante (sin repetidos):\n");
 	for(int i=0;i<cant;i++){
-		printf("%d\n",c[i]);
+		printf("[%d] ",c[i]);
 	}
-	
+	printf("\n");
+
 	return 0;
 }
