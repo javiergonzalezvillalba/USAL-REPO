@@ -2,7 +2,7 @@
 // Created by Javi on 23/08/2026.
 //
 
-#include "gonzalezJaviP1_e16.h"
+#include "gonzalezP1_16.h"
 #include <stdio.h>
 #define FILS 5
 #define COLS 5

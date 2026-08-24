@@ -1,5 +1,5 @@
 //EJERCICIO 2 DE PROGRAMACION 1
-//Función que determine si un número es primo.
+//Funcion que determine si un nï¿½mero es primo.
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>

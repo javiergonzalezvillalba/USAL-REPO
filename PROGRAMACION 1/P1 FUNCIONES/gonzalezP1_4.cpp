@@ -7,13 +7,44 @@
 
 #include <stdio.h>
 #include <ctype.h>
-#define MAX 5
+#define MAX 3
+
+void efectivo(double montos[],char medioPago[]) {
+	double suma=0, promedio=0, cant=0;
+
+	printf("Listado de efectivo: \n");
+	printf("-%20s -%20s -%20s\n", "NUMERO", "TIPO", "MONTO");
+	for(int i=0;i<MAX;i++) {
+		if(medioPago[i]=='E'){
+			printf("-%20d -%20c -%20.2f\n", i, medioPago[i], montos[i]);
+			suma+=montos[i];
+			cant++;
+		}
+	}
+	promedio=suma/cant;
+	printf("El promedio de efectivo es %.2f\n",promedio);
+}
+
+void credito(double montos[],char medioPago[]) {
+	double suma=0, promedio=0, cant=0;
+
+	printf("Listado de credito: \n");
+	printf("-%20s -%20s -%20s\n", "NUMERO", "TIPO", "MONTO");
+	for(int i=0;i<MAX;i++) {
+		if(medioPago[i]=='C'){
+			printf("-%20d -%20c -%20.2f\n", i, medioPago[i], montos[i]);
+			suma+=montos[i];
+			cant++;
+		}
+	}
+	promedio=suma/cant;
+	printf("El promedio de credito es %.2f\n",promedio);
+}
 
 int main(){
-	
-	double monto=0, montos[MAX], suma=0, promedioE=0, promedioC=0;
+	double monto=0, montos[MAX];
 	char letra=' ', medioPago[MAX];
-	int num=0, cantE=0, cantC=0;
+	int num=0;
 	
 	for(int i=0;i<MAX;i++){
 		do{
@@ -21,7 +52,7 @@ int main(){
 		scanf("%lf", &monto);fflush(stdin);
 		montos[i]=monto;
 		}while(monto<=0);
-		
+
 		do{
 		printf("CLIENTE %d, medio de pago; ",i);
 		scanf("%c", &letra);
@@ -36,32 +67,14 @@ int main(){
 		switch(num){
 			case 1:
 				printf("listado de efectivo y promedio\n");
-				for(int i=0;i<MAX;i++){
-					if(medioPago=='E'){
-						printf("Cliente %d: monto: %.2lf\n",i,montos[i]);
-						suma=suma+montos[i];
-						cantE=cantE+1;
-					}
-				}
-				promedioE= suma/cantE;
-				printf("PROMEIDO PAGOS EFECTIVO: %.2lf",promedioE);
+				efectivo(montos,medioPago);
 				break;
 			case 2:
 				printf("listado de credito y promedio\n");
-				printf("listado de credito y promedio\n");
-				for(int i=0;i<MAX;i++){
-					if(medioPago=='C'){
-						printf("Cliente %d: monto: %.2lf\n",i,montos[i]);
-						suma=suma+montos[i];
-						cantC=cantC+1;
-					}
-				}
-				promedioC= suma/cantC;
-				printf("PROMEIDO PAGOS CREDITO: %.2lf",promedioC);
+				credito(montos,medioPago);
 				break;	
 			default: 
 				printf("Numero no valido. Debe ser 1, 2 o 0.\n");
-				num=0;
 		}
 	}while(num!=0);
 	

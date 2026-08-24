@@ -1,11 +1,9 @@
 //EJERCICIO 1 V2 DE PROGRAMACION 1
-//Calcule el factorial de un número
-
+//Calcule el factorial de un numero
 #include <stdio.h>
-#include <ctype.h>
 
 int calcularFactorial(int num){
-	int factorizado=1;
+    int factorizado=1;
     for (int i=num; i > 1; i--) {
         factorizado *= i;
     }

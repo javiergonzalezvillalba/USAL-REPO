@@ -6,7 +6,7 @@
 #define USAL_REPO_GONZALEZJAVIP1_E16_H
 
 
-class gonzalezJaviP1_e16 {
+class gonzalezP1_16 {
 };
 
 
