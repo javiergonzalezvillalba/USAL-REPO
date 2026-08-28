@@ -68,7 +68,7 @@ int cantidadPersonas(t_viviendas arr[]) {
     return cantidad;
 }
 
-int cantidadConServicio(t_viviendas arr[]) {
+int cantidadSinServicio(t_viviendas arr[]) {
     int cantidad=0;
 
     for (int i = 0; i < MAX; i++) {
@@ -79,34 +79,65 @@ int cantidadConServicio(t_viviendas arr[]) {
     return cantidad;
 }
 
-void menu(t_viviendas arr[]) {
-    int num=0;
+int cantidadPPA(t_viviendas arr[]) {
+    int cantidadP=0, cant=0;
+    float promedioPPA=0.0;
 
-    printf("--------------MENU-----------------\n");
-    printf("1. Cuantos habitantes sin servicio electrico.\n");
-    printf("2. Promedio en cada casa. Lista n habitantes, n ambientes, promedio.\n");
-    printf("3. Total de del consumo con servicio y consumen menos de 1kWh.\n");
-    printf("0. Salir.\n");
-    printf("Ingrese una opcion: ");
-    scanf("%d",&num);
+    for (int i = 0; i < MAX; i++) {
+        cantidadP=cantidadP+arr[i].numHabitantes;
+        cant=cant+arr[i].numAmbientes;
+    }
+    promedioPPA=cantidadP/cant;
+    return promedioPPA;
+}
+
+float totalConsumo(t_viviendas arr[]) {
+    float total=0.0;
+
+    for (int i = 0; i < MAX; i++) {
+        if (arr[i].servicioElectrico==true && arr[i].consumoElectrico<1000) {
+            total=total+arr[i].consumoElectrico;
+        }
+    }
+    return total;
+}
+
+void menu(t_viviendas arr[]) {
+    int num=0, cantSS=0;
+    float cantPPA=0.0, total=0.0;
 
     do {
+        printf("\n--------------MENU-----------------\n");
+        printf("1. Cuantos habitantes sin servicio electrico.\n");
+        printf("2. Promedio en cada casa. Lista n habitantes, n ambientes, promedio.\n");
+        printf("3. Total de del consumo con servicio y consumen menos de 1kWh.\n");
+        printf("0. Salir.\n");
+        printf("Ingrese una opcion: ");
+        scanf("%d",&num);
+
         switch (num) {
             case 1:
-                printf("Cantidad sin servicio electrico: ");
-                cantidadConServicio(t_viviendas arr);
+                cantSS = cantidadSinServicio(arr);
+                printf("Cantidad sin servicio electrico: %d\n", cantSS);
                 break;
             case 2:
-                pedirDatos(arr);
+                cantPPA = cantidadPPA(arr);
+                printf("Promedio de habitantes por ambiente en las casas: %.2f\n", cantPPA);
+                printf("%-20s %-20s %-20s %-20s", "CASA", "HABITANTES", "AMBIENTES", "PROMEDIO");
+                for (int i = 0; i < MAX; i++) {
+                    printf("\n%-20d %-20d %-20d %-20.2f", i+1, arr[i].numHabitantes, arr[i].numAmbientes, arr[i].numHabitantes / (float)arr[i].numAmbientes);
+                }
                 break;
             case 3:
-                pedirDatos(arr);
+                total = totalConsumo(arr);
+                printf("Total de consumo con servicio y consumen menos de 1kWh: %.2f\n", total);
                 break;
             case 0:
                 printf("Salir.\n");
                 break;
             default:
                 printf("Ingrese una opcion valida: ");
+                break;
         }
     }while(num!=0);
 }
